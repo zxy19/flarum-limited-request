@@ -4,6 +4,7 @@ namespace Xypp\LimitedRequest\Middleware;
 
 use Flarum\Http\RequestUtil;
 use Flarum\Settings\SettingsRepositoryInterface;
+use Flarum\User\Exception\NotAuthenticatedException;
 use Flarum\User\Exception\PermissionDeniedException;
 use Flarum\User\User;
 use Illuminate\Support\Arr;
@@ -36,11 +37,9 @@ class RequestLimitMiddlewareBase implements MiddlewareInterface
             try {
                 $this->shouldLimit($actor, $limitList, $method, $path, $params);
             } catch (PermissionDeniedException $e) {
-                if ($name === "api") {
-                    throw $e;
-                } else {
-                    return new RedirectResponse("/");
-                }
+                $this->handleException($e);
+            } catch (NotAuthenticatedException $e) {
+                $this->handleException($e);
             }
         }
 
@@ -49,6 +48,14 @@ class RequestLimitMiddlewareBase implements MiddlewareInterface
         return $response;
     }
 
+    protected function handleException($exception)
+    {
+        if ($this->name === "api") {
+            throw $exception;
+        } else {
+            return new RedirectResponse("/");
+        }
+    }
     protected function shouldLimit(User $actor, array $limitList, string $method, string $path, array $params)
     {
         foreach ($limitList as $limit) {
