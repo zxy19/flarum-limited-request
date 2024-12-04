@@ -74,8 +74,8 @@ class RequestLimitMiddlewareBase implements MiddlewareInterface
             }
 
             // check param
-            if (isset($limit['param'])) {
-                foreach ($limit['param'] as $key) {
+            if (isset($limit['params'])) {
+                foreach ($limit['params'] as $key) {
                     if (!Arr::has($params, $key)) {
                         $match = false;
                     }
