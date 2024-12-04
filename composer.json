@@ -1,0 +1,55 @@
+{
+    "name": "xypp/flarum-limited-request",
+    "description": "Limit request to some path with specific attributes",
+    "keywords": [
+        "flarum"
+    ],
+    "type": "flarum-extension",
+    "license": "MIT",
+    "require": {
+        "flarum/core": "^1.2.0"
+    },
+    "authors": [
+        {
+            "name": "小鱼飘飘",
+            "email": "z@xypp.cc",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Xypp\\LimitedRequest\\": "src/"
+        }
+    },
+    "extra": {
+        "flarum-extension": {
+            "title": "Limited Request",
+            "category": "features",
+            "icon": {
+                "name": "far fa-hand-point-left",
+                "color": "#fff",
+                "backgroundColor": "#1a237e"
+            }
+        },
+        "flarum-cli": {
+            "modules": {
+                "admin": true,
+                "forum": true,
+                "js": true,
+                "jsCommon": true,
+                "css": true,
+                "locale": true,
+                "gitConf": true,
+                "githubActions": true,
+                "prettier": true,
+                "typescript": true,
+                "bundlewatch": false,
+                "backendTesting": true,
+                "editorConfig": true,
+                "styleci": true
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

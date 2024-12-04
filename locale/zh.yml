@@ -1,0 +1,29 @@
+xypp-limited-request:
+  # For more details on the format
+  # Checkout https://docs.flarum.org/extend/i18n/#appendix-a-standard-key-format
+  admin:
+    match_mode:
+      regex: "正则表达式"
+      prefix: "前缀"
+      full: "完全"
+    match_method:
+      GET: "GET"
+      POST: "POST"
+      PUT: "PUT"
+      DELETE: "DELETE"
+      PATCH: "PATCH"
+      OPTIONS: "OPTIONS"
+      HEAD: "HEAD"
+    group:
+      api: "API"
+      forum: "Forum"
+    route_group: "路由组"
+    mode: "模式"
+    method: "请求"
+    value: "值"
+    params: "参数(逗号分隔)"
+    group_id: "用户组ID"
+    action: "操作"
+    delete: "删除"
+    add: "添加"
+  forum:
