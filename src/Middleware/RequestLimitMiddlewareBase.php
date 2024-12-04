@@ -3,11 +3,13 @@
 namespace Xypp\LimitedRequest\Middleware;
 
 use Flarum\Http\RequestUtil;
+use Flarum\Locale\Translator;
 use Flarum\Settings\SettingsRepositoryInterface;
 use Flarum\User\Exception\NotAuthenticatedException;
 use Flarum\User\Exception\PermissionDeniedException;
 use Flarum\User\User;
 use Illuminate\Support\Arr;
+use Laminas\Diactoros\Response\HtmlResponse;
 use Laminas\Diactoros\Response\RedirectResponse;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -17,10 +19,12 @@ use Psr\Http\Server\RequestHandlerInterface;
 class RequestLimitMiddlewareBase implements MiddlewareInterface
 {
     protected SettingsRepositoryInterface $settings;
+    protected Translator $translator;
     protected string $name;
-    public function __construct(SettingsRepositoryInterface $settings, string $name)
+    public function __construct(SettingsRepositoryInterface $settings, Translator $translator, string $name)
     {
         $this->settings = $settings;
+        $this->translator = $translator;
         $this->name = $name;
     }
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
@@ -53,7 +57,7 @@ class RequestLimitMiddlewareBase implements MiddlewareInterface
         if ($this->name === "api") {
             throw $exception;
         } else {
-            return new RedirectResponse("/");
+            return new HtmlResponse("<h1>" . $this->translator->trans('xypp-limited-request.api.limit_error') . "</h1><script>window.location.href='/';</script>");
         }
     }
     protected function shouldLimit(User $actor, array $limitList, string $method, string $path, array $params)

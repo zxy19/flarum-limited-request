@@ -26,4 +26,5 @@ xypp-limited-request:
     action: "Action"
     delete: "Delete"
     add: "Add"
-  forum:
+  api:
+    limit_error: "This request was limited. Redirecting to main page..."

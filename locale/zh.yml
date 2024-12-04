@@ -26,4 +26,5 @@ xypp-limited-request:
     action: "操作"
     delete: "删除"
     add: "添加"
-  forum:
+  api:
+    limit_error: "当前请求受限，正在重定向到首页"
