@@ -33,7 +33,7 @@ class RequestLimitMiddlewareBase implements MiddlewareInterface
         $limitList = json_decode($limitList, true);
         $path = $request->getUri()->getPath();
         $params = $request->getQueryParams();
-        $method = strtoupper($request->getMethod());
+        $method = strtoupper(string: $request->getMethod());
         $actor = RequestUtil::getActor($request);
 
 
@@ -41,9 +41,9 @@ class RequestLimitMiddlewareBase implements MiddlewareInterface
             try {
                 $this->shouldLimit($actor, $limitList, $method, $path, $params);
             } catch (PermissionDeniedException $e) {
-                $this->handleException($e);
+                return $this->handleException($e);
             } catch (NotAuthenticatedException $e) {
-                $this->handleException($e);
+                return $this->handleException($e);
             }
         }
 
